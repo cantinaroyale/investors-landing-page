@@ -22,7 +22,7 @@ function Img({ id, src = "", alt = "" }: Props) {
           style={{ opacity: isLoading ? 0 : 1 }}
           src={src}
           alt={alt}
-          onLoad={() => setIsLoading(true)}
+          onLoad={() => setIsLoading(false)}
         />
       )}
     </div>

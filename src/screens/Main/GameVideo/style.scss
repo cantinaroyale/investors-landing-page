@@ -1,0 +1,16 @@
+.game-video {
+  position: relative;
+  figure {
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    z-index: 99;
+    top: 0px;
+    height: 100px;
+    background: linear-gradient(
+      180deg,
+      rgba(34, 34, 34, 0.8) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+}

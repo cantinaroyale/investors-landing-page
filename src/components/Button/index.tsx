@@ -10,7 +10,12 @@ interface Props {
 
 function Button({ content, isLoading, id = "", onClick }: Props) {
   return (
-    <button onClick={onClick} className="button" id={id}>
+    <button
+      style={{ pointerEvents: isLoading ? "none" : "all" }}
+      onClick={isLoading ? () => {} : onClick}
+      className="button"
+      id={id}
+    >
       {isLoading && <Spinner />}
       <p style={{ opacity: isLoading ? 0 : 1 }}>{content}</p>
     </button>

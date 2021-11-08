@@ -1,4 +1,5 @@
-const createGameActions = (gameInstance: any) => {
+const createGameActions = () => {
+  const gameInstance = (window as any).gameInstance;
   const bodyParts = "BAYCBodyParts";
   return {
     prevWeapon: () => gameInstance.SendMessage(bodyParts, "PreviousWeapon"),
@@ -10,6 +11,8 @@ const createGameActions = (gameInstance: any) => {
     prevFurColor: () =>
       gameInstance.SendMessage(bodyParts, "PreviousSkinColor"),
     nextFurColor: () => gameInstance.SendMessage(bodyParts, "NextSkinColor"),
+    setFur: (index: number) =>
+      gameInstance.SendMessage(bodyParts, "ChangeSkinExternal", index),
   };
 };
 

@@ -11,12 +11,11 @@
     />
     <script src="./webgl/UnityLoader.js"></script>
     <script>
-      var gameInstance = UnityLoader.instantiate(
+      const gameInstance = UnityLoader.instantiate(
         "gameContainer",
         "webgl/BAYC WebGL.json"
       );
       window.gameInstance = gameInstance;
-      var canvas = document.getElementById("#gameContainer");
     </script>
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--

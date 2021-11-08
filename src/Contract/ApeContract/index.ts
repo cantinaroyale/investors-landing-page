@@ -14,16 +14,15 @@ class ApeContract {
     let itemId = await this.contract.methods
       .tokenOfOwnerByIndex(address, 0)
       .call();
-    console.log({ itemId });
     let itemUrl = await this.contract.methods.tokenURI(itemId).call();
-    console.log({ itemUrl });
     let res = await fetch(itemUrl.replace("ipfs://", "https://ipfs.io/ipfs/"));
 
     const apeData = await res.json();
-
-    const apeFur = apeData.attributes[0].value;
-    apeData.image = apeData.image.replace("ipfs://", "https://ipfs.io/ipfs/");
-    console.log({ apeData });
+    apeData.imageapeData = apeData.image.replace(
+      "ipfs://",
+      "https://ipfs.io/ipfs/"
+    );
+    return apeData;
   }
 }
 

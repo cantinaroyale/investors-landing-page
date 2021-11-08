@@ -1,8 +1,8 @@
+import { createGameActions } from "../util";
 import ControllerAction from "./ControllerAction";
-import { createGameActions } from "./util";
+const actions = createGameActions();
 
 function ApeController() {
-  const actions = createGameActions((window as any).gameInstance);
   return (
     <div className="game-controller">
       <h3 className="game-controller-title">Set the actions</h3>
