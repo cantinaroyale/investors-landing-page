@@ -73,7 +73,6 @@ function Header({ updateBackground }: Props) {
   };
 
   const handleChange = (e: any) => {
-    e.preventDefault();
     setAddressToFetch(e.target.value);
   };
 
