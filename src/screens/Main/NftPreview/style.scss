@@ -1,0 +1,71 @@
+.nft-preview {
+  position: relative;
+  height: auto;
+
+  &-flex {
+    display: flex;
+    width: 940px;
+    margin: 0 auto;
+  }
+  &-input {
+    background: linear-gradient(
+      74.31deg,
+      #85ffc4 0%,
+      #5cc6ff 45.83%,
+      #bc85ff 80.73%
+    );
+    border-radius: 8px;
+    flex: 1;
+    display: flex;
+    height: 50px;
+    position: relative;
+    input {
+      position: absolute;
+      left: 2px;
+      background: #1c1924;
+      width: calc(100% - 270px);
+      height: calc(100% - 4px);
+      transform: translate(0, -50%);
+      top: 50%;
+      text-indent: 20px;
+      border: none;
+      border-radius: 8px;
+      font-family: $main-font;
+      letter-spacing: 0.15em;
+      font-weight: 500;
+      font-size: 16px;
+    }
+    #fetch-asset {
+      position: absolute;
+      right: 0px;
+      width: 280px;
+      height: 100%;
+      background: linear-gradient(
+        74.31deg,
+        #85ffc4 0%,
+        #5cc6ff 45.83%,
+        #bc85ff 80.73%
+      );
+      border-radius: 8px;
+      p {
+        font-weight: bold;
+        font-size: 16px;
+        color: #1d0936;
+      }
+    }
+  }
+}
+
+#connect {
+  position: absolute;
+  right: 0px;
+  background: #01164a;
+  border: 1px solid #bc85ff;
+  border-radius: 18px;
+  height: 50px;
+  padding: 0px 15px;
+  p {
+    font-weight: 500;
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,12 @@
+.ape {
+  position: relative;
+  width: fit-content;
+
+  .spinner {
+    @extend .absolute-center;
+    zoom: 0.8;
+    &::after {
+      border-color: #081633 transparent #081633 transparent;
+    }
+  }
+}

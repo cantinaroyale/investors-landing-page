@@ -1,0 +1,16 @@
+@import "./ApeController/style.scss";
+@import "./ApeFigure/style.scss";
+@import "./NftPreview/style.scss";
+.main {
+  &-top {
+    background: linear-gradient(180deg, #000f34 0%, #717234 91.65%);
+    &-grid {
+      width: 940px;
+      margin: 0 auto;
+    }
+    &-game {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
