@@ -1,0 +1,16 @@
+{
+  "companyName": "Phenomenon Games",
+  "productName": "Meltdown",
+  "dataUrl": "BAYC WebGL.data.unityweb",
+  "wasmCodeUrl": "BAYC WebGL.wasm.code.unityweb",
+  "wasmFrameworkUrl": "BAYC WebGL.wasm.framework.unityweb",
+  "asmCodeUrl": "BAYC WebGL.asm.code.unityweb",
+  "asmMemoryUrl": "BAYC WebGL.asm.memory.unityweb",
+  "asmFrameworkUrl": "BAYC WebGL.asm.framework.unityweb",
+  "TOTAL_MEMORY": 268435456,
+  "graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
+  "webglContextAttributes": { "preserveDrawingBuffer": false },
+  "splashScreenStyle": "Dark",
+  "backgroundColor": "transparent",
+  "cacheControl": { "dataUrl": "must-revalidate" }
+}
