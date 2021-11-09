@@ -13,7 +13,7 @@ function GameVideo() {
         className="video"
         src={VIDEO_URL}
         poster={images.poster}
-      ></video>
+      />
     </div>
   );
 }

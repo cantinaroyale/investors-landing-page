@@ -7,8 +7,7 @@
   height: 100%;
   padding-bottom: 200px;
   &-top {
-    min-height: 100vh;
-    height: fit-content;
+    height: 100vh;
     padding-top: 50px;
     position: relative;
     &-grid {
@@ -19,11 +18,14 @@
     &-game {
       display: flex;
       align-items: center;
-      margin-top: 80px;
-      justify-content: space-between;
+      margin-top: 40px;
+      justify-content: center;
       padding-bottom: 220px;
       position: relative;
       z-index: 10;
+      .game-controller {
+        margin-left: 40px;
+      }
     }
     &-figure {
       position: absolute;
@@ -32,7 +34,15 @@
     }
   }
 }
-
+@media only screen and (max-width: 1800px) {
+  .main {
+    &-top {
+      &-game {
+        zoom: 0.95;
+      }
+    }
+  }
+}
 @media only screen and (max-width: 1000px) {
   .main {
     &-top {
@@ -46,12 +56,15 @@
 @media only screen and (max-width: $mobile) {
   .main {
     &-top {
+      height: auto;
       padding-top: 30px;
       &-game {
+        zoom: 1;
         padding-bottom: 140px;
         margin-top: 50px;
         flex-direction: column;
         .game-controller {
+          margin-left: 0px;
         }
         .ape {
           margin-bottom: 10px;

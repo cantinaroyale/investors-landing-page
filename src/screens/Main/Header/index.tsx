@@ -1,44 +1,42 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Button from "../../../components/Button";
 import Img from "../../../components/Img";
-import { apeAttributes, TEST_ACCOUNT } from "../../../consts";
+import { apeAttributes, DEFAULT_ACCOUNT } from "../../../consts";
 import ApeContract from "../../../Contract/ApeContract";
 import useWeb3 from "../../../hooks/useWeb3";
 import { useMainStore } from "../../../stores/MainStore/inde";
-import { Attribute } from "../../../types";
+import { APE_ATTRIBUTES, Attribute } from "../../../types";
 import { createGameActions } from "../util";
 
-interface Props {
-  updateBackground: (color: string) => void;
-  showError: () => void;
-}
 const actions = createGameActions();
 
-function Header({ updateBackground, showError }: Props) {
+function Header() {
   const furRef = useRef<number>();
   const { web3, address, connect, web3Loaded } = useWeb3();
   const [assetUrl, setAssetUrl] = useState("");
   const [assetLoading, setAssetLoading] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const { apeFigureLoaded } = useMainStore();
+  const { apeFigureLoaded, setShowError, setBackground } = useMainStore();
 
   const handleBackGround = useCallback(
     (attributes: Attribute[]) => {
       const backgroundItem = attributes.find(
-        (m: Attribute) => m.trait_type === "Background"
+        (m: Attribute) => m.trait_type === APE_ATTRIBUTES.BACKGROUND
       );
       if (!backgroundItem?.value) {
         return;
       }
       const bg = apeAttributes.background[backgroundItem?.value];
-      updateBackground(bg);
+      setBackground(bg);
     },
-    [updateBackground]
+    [setBackground]
   );
 
   const handleFur = useCallback(
     (attributes: Attribute[]) => {
-      const furItem = attributes.find((m: Attribute) => m.trait_type === "Fur");
+      const furItem = attributes.find(
+        (m: Attribute) => m.trait_type === APE_ATTRIBUTES.FUR
+      );
       if (!furItem) {
         return;
       }
@@ -47,7 +45,7 @@ function Header({ updateBackground, showError }: Props) {
       if (apeFigureLoaded) {
         actions.setFur(furIndex);
       } else {
-        // furRef.current = furIndex;
+        furRef.current = furIndex;
       }
     },
     [apeFigureLoaded]
@@ -57,11 +55,11 @@ function Header({ updateBackground, showError }: Props) {
     if (!web3) {
       return;
     }
-    const contract = new ApeContract(web3);
     setAssetLoading(true);
     setAssetUrl("");
 
     try {
+      const contract = new ApeContract(web3);
       const res = await contract.fetchNfts(account);
       setAssetUrl(res.imageapeData);
       handleBackGround(res.attributes);
@@ -75,7 +73,7 @@ function Header({ updateBackground, showError }: Props) {
 
   useEffect(() => {
     if (web3Loaded) {
-      fetchAsset(TEST_ACCOUNT);
+      fetchAsset(DEFAULT_ACCOUNT);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [web3Loaded]);
@@ -85,18 +83,14 @@ function Header({ updateBackground, showError }: Props) {
       actions.setFur(furRef.current);
       furRef.current = undefined;
     }
-  }, [apeFigureLoaded, updateBackground]);
+  }, [apeFigureLoaded]);
 
   const onFetchClick = async (val: string) => {
     setInputValue(val);
     const res = await fetchAsset(val);
     if (!res) {
-      showError();
+      setShowError(true);
     }
-  };
-
-  const handleChange = (e: any) => {
-    setInputValue(e.target.value);
   };
 
   return (
@@ -113,7 +107,7 @@ function Header({ updateBackground, showError }: Props) {
           <section className="main-header-input">
             <input
               placeholder="Insert Address..."
-              onChange={handleChange}
+              onChange={(e) => setInputValue(e.target.value)}
               type="text"
               value={inputValue}
             />

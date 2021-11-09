@@ -55,6 +55,7 @@
 @media only screen and (max-width: $mobile) {
   .game-controller {
     zoom: 1;
+
     max-width: 360px;
     width: calc(100% - 30px);
     padding: 20px;

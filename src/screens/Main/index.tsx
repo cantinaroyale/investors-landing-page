@@ -1,27 +1,17 @@
-import { useCallback, useState } from "react";
-import Error from "../../components/Error";
-import { DEFAULT_BACKGROUND_COLOR, images } from "../../consts";
+import { images } from "../../consts";
+import { useMainStore } from "../../stores/MainStore/inde";
 import ApeController from "./ApeController";
 import ApeFigure from "./ApeFigure";
 import GameVideo from "./GameVideo";
 import Header from "./Header";
+import NoNftError from "./NoNftError";
 
 function Main() {
-  const [background, setBackground] = useState(DEFAULT_BACKGROUND_COLOR);
-  const [showError, setShowError] = useState(false);
-
-  const updateBackground = useCallback((color: string) => {
-    setBackground(color);
-  }, []);
+  const { background } = useMainStore();
 
   return (
     <div className="main">
-      {showError && (
-        <Error
-          close={() => setShowError(false)}
-          content="This Account dont have NFT"
-        />
-      )}
+      <NoNftError />
       <div
         className="main-top"
         style={{
@@ -29,10 +19,7 @@ function Main() {
         }}
       >
         <div className="main-top-grid">
-          <Header
-            updateBackground={updateBackground}
-            showError={() => setShowError(true)}
-          />
+          <Header />
           <div className="main-top-game">
             <ApeFigure />
             <ApeController />
