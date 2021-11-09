@@ -5,20 +5,19 @@ import { apeAttributes, TEST_ACCOUNT } from "../../../consts";
 import ApeContract from "../../../Contract/ApeContract";
 import useWeb3 from "../../../hooks/useWeb3";
 import { Attribute } from "../../../types";
-import { makeElipsisAddress } from "../../../utils";
-
 import { createGameActions } from "../util";
 
 interface Props {
   updateBackground: (color: string) => void;
+  showError: () => void;
 }
 const actions = createGameActions();
 
-function Header({ updateBackground }: Props) {
-  const { web3, address, connect } = useWeb3();
+function Header({ updateBackground, showError }: Props) {
+  const { web3, address, connect, web3Loaded } = useWeb3();
   const [assetUrl, setAssetUrl] = useState("");
   const [assetLoading, setAssetLoading] = useState(false);
-  const [addressToFetch, setAddressToFetch] = useState("");
+  const [inputValue, setInputValue] = useState("");
 
   const handleBackGround = useCallback(
     (attributes: Attribute[]) => {
@@ -32,38 +31,6 @@ function Header({ updateBackground }: Props) {
     [updateBackground]
   );
 
-  const fetchAsset = useCallback(
-    async (account: string) => {
-      if (!web3) {
-        return;
-      }
-      const contract = new ApeContract(web3);
-      setAssetLoading(true);
-      setAssetUrl("");
-      try {
-        const res = await contract.fetchNfts(account || TEST_ACCOUNT);
-        setAssetUrl(res.imageapeData);
-        handleBackGround(res.attributes);
-        handleFur(res.attributes);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setAssetLoading(false);
-      }
-    },
-    [handleBackGround, web3]
-  );
-
-  useEffect(() => {
-    if (address) {
-      setAddressToFetch(address);
-      fetchAsset(address);
-    }
-    if (!assetUrl) {
-      fetchAsset(address);
-    }
-  }, [address, assetUrl, fetchAsset]);
-
   const handleFur = (attributes: Attribute[]) => {
     const furItem = attributes.find((m: Attribute) => m.trait_type === "Fur");
     if (furItem) {
@@ -72,16 +39,48 @@ function Header({ updateBackground }: Props) {
     }
   };
 
+  const fetchAsset = async (account: string) => {
+    if (!web3) {
+      return;
+    }
+    const contract = new ApeContract(web3);
+    setAssetLoading(true);
+    setAssetUrl("");
+
+    try {
+      const res = await contract.fetchNfts(account);
+      setAssetUrl(res.imageapeData);
+      handleBackGround(res.attributes);
+      handleFur(res.attributes);
+    } catch (error) {
+      showError();
+    } finally {
+      setAssetLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (web3Loaded) {
+      fetchAsset(TEST_ACCOUNT);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [web3Loaded]);
+
+  const onFetchMyApe = (address: string) => {
+    setInputValue(address);
+    fetchAsset(address);
+  };
+
   const handleChange = (e: any) => {
-    setAddressToFetch(e.target.value);
+    setInputValue(e.target.value);
   };
 
   return (
     <div className="main-header">
       <Button
         id="connect"
-        content={makeElipsisAddress(address, 8) || "Connect Wallet"}
-        onClick={connect}
+        content={address ? "Show My Ape" : "Connect Wallet"}
+        onClick={address ? () => onFetchMyApe(address) : connect}
       />
       <div className="main-header-flex">
         <Img src={assetUrl} alt="ape" id="main-header-avatar" />
@@ -92,11 +91,12 @@ function Header({ updateBackground }: Props) {
               placeholder="Insert Address..."
               onChange={handleChange}
               type="text"
-              value={addressToFetch}
+              value={inputValue}
             />
             <Button
               isLoading={assetLoading}
               content="Load"
+              disabled={!inputValue}
               id="fetch-asset"
               onClick={() => fetchAsset(address)}
             />

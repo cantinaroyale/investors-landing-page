@@ -1,0 +1,55 @@
+.error-content {
+  position: relative;
+  padding: 50px 20px 30px 20px;
+  width: 100%;
+  text-align: center;
+
+  background: black;
+  border: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 700px;
+  width: calc(100% - 70px);
+  height: auto;
+  min-height: 350px;
+  border-radius: 10px;
+  &-message {
+    position: relative;
+    color: white;
+    font-size: 30px;
+  }
+  &-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
+  h2 {
+    font-family: $main-font;
+    font-weight: 800;
+    font-size: 35px;
+    margin-bottom: 40px;
+  }
+  p {
+    font-size: 18px;
+  }
+  .button {
+    margin-top: 50px;
+    min-width: 165px;
+    height: 43px;
+    font-size: 20px;
+  }
+}
+
+#error {
+  .popup-container-content {
+    max-width: 750px;
+    width: calc(100% - 40px);
+  }
+}
+@media only screen and (max-width: 600px) {
+  .error-content h2 {
+    font-size: 27px;
+  }
+}

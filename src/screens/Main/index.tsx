@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import Error from "../../components/Error";
 import { DEFAULT_BACKGROUND_COLOR, images } from "../../consts";
 import ApeController from "./ApeController";
 import ApeFigure from "./ApeFigure";
@@ -7,6 +8,7 @@ import Header from "./Header";
 
 function Main() {
   const [background, setBackground] = useState(DEFAULT_BACKGROUND_COLOR);
+  const [showError, setShowError] = useState(false);
 
   const updateBackground = useCallback((color: string) => {
     setBackground(color);
@@ -14,6 +16,12 @@ function Main() {
 
   return (
     <div className="main">
+      {showError && (
+        <Error
+          close={() => setShowError(false)}
+          content="This Account dont have NFT"
+        />
+      )}
       <div
         className="main-top"
         style={{
@@ -21,7 +29,10 @@ function Main() {
         }}
       >
         <div className="main-top-grid">
-          <Header updateBackground={updateBackground} />
+          <Header
+            updateBackground={updateBackground}
+            showError={() => setShowError(true)}
+          />
           <div className="main-top-game">
             <ApeFigure />
             <ApeController />

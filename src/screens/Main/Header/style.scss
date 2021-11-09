@@ -19,7 +19,7 @@
   #main-header-avatar {
     width: 145px;
     height: 145px;
-    border: 1px solid white;
+
     border-radius: 10px;
     overflow: hidden;
     .spinner {
@@ -39,6 +39,7 @@
     height: 50px;
     position: relative;
     input {
+      padding-right: 20px;
       position: absolute;
       left: 2px;
       background: #1c1924;
@@ -83,7 +84,7 @@
   border: 1px solid #bc85ff;
   border-radius: 18px;
   height: 50px;
-  padding: 0px 15px;
+  padding: 0px 26px;
   p {
     font-weight: 500;
     font-size: 16px;

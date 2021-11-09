@@ -16,7 +16,7 @@ function Img({ id, src = "", alt = "" }: Props) {
   }, [src]);
   return (
     <div className="img" id={id}>
-      {isLoading && <Spinner />}
+      {!src ? <div className="img-missing"></div> : isLoading && <Spinner />}
       {src && (
         <img
           style={{ opacity: isLoading ? 0 : 1 }}

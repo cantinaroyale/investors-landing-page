@@ -5,9 +5,11 @@ function useWeb3(): {
   web3?: Web3;
   connect: () => void;
   address: string;
+  web3Loaded?: boolean;
 } {
   const [web3, setWeb3] = useState<Web3 | undefined>();
   const [address, setAddress] = useState("");
+  const [web3Loaded, setWeb3Loaded] = useState(false);
 
   useEffect(() => {
     const provider = (window as any).ethereum;
@@ -31,6 +33,7 @@ function useWeb3(): {
     if (connectedAccounts.length > 0) {
       setAddress(connectedAccounts[0]);
     }
+    setWeb3Loaded(true);
   };
 
   const connect = () => {
@@ -40,7 +43,7 @@ function useWeb3(): {
     return web3.eth.requestAccounts();
   };
 
-  return { web3, connect, address };
+  return { web3, connect, address, web3Loaded };
 }
 
 export default useWeb3;

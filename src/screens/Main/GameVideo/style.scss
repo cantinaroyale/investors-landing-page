@@ -1,5 +1,6 @@
 .game-video {
   position: relative;
+  width: 100%;
   figure {
     position: absolute;
     left: 0px;
@@ -12,5 +13,8 @@
       rgba(34, 34, 34, 0.8) 0%,
       rgba(0, 0, 0, 0) 100%
     );
+  }
+  .video {
+    width: 100%;
   }
 }
