@@ -372,7 +372,7 @@ var UnityLoader = UnityLoader || {
         preRun: [],
         postRun: [],
         print: function (e) {
-          console.log(e);
+          console.log();
         },
         printErr: function (e) {
           console.error(e);
