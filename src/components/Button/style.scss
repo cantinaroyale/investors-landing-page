@@ -3,6 +3,9 @@
     font-family: $main-font;
   }
   .spinner {
+    &::after {
+      border-color: #081633 transparent #081633 transparent;
+    }
     @extend .absolute-center;
     zoom: 0.4;
   }

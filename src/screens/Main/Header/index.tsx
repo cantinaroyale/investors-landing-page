@@ -13,11 +13,11 @@ const actions = createGameActions();
 function Header() {
   const furRef = useRef<number>();
   const { web3, address, connect, web3Loaded } = useWeb3();
+
   const [assetUrl, setAssetUrl] = useState("");
   const [assetLoading, setAssetLoading] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const { apeFigureLoaded, setShowError, setBackground } = useMainStore();
-
   const handleBackGround = useCallback(
     (attributes: Attribute[]) => {
       const backgroundItem = attributes.find(
@@ -55,6 +55,7 @@ function Header() {
     if (!web3) {
       return;
     }
+
     setAssetLoading(true);
     setAssetUrl("");
 

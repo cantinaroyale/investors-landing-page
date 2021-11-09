@@ -17,6 +17,7 @@ function useWeb3(): {
       addEventsToProvider(provider);
       const web3Instance = new Web3(provider);
       detectAccount(web3Instance);
+
       setWeb3(web3Instance);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

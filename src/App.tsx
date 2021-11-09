@@ -1,3 +1,4 @@
+import NetworkHandler from "./components/NetworkHandler";
 import ProviderError from "./components/ProviderError";
 import { Main } from "./screens";
 import "./styles/index.scss";
@@ -7,6 +8,7 @@ function App() {
     <div className="App">
       <Main />
       <ProviderError />
+      <NetworkHandler />
     </div>
   );
 }
