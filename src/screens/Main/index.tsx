@@ -15,7 +15,7 @@ function Main() {
       <div
         className="main-top"
         style={{
-          background: `linear-gradient(180deg, #000f34 0%, ${background} 91.65%)`,
+          background: `linear-gradient(-45deg, #000f34 0%, ${background} 91.65%)`,
         }}
       >
         <div className="main-top-grid">
