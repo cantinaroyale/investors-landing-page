@@ -2,10 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { MainStore } from "./stores/MainStore/inde";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <MainStore>
+      <App />
+    </MainStore>
   </React.StrictMode>,
   document.getElementById("root")
 );

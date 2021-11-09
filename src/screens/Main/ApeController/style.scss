@@ -45,3 +45,34 @@
     }
   }
 }
+
+@media only screen and (max-width: 1000px) {
+  .game-controller {
+    zoom: 0.8;
+  }
+}
+
+@media only screen and (max-width: $mobile) {
+  .game-controller {
+    zoom: 1;
+    max-width: 360px;
+    width: calc(100% - 30px);
+    padding: 20px;
+    padding-bottom: 40px;
+    &-title {
+      font-size: 20px;
+      line-height: normal;
+      margin-bottom: 20px;
+    }
+    &-section {
+      margin-bottom: 20px;
+      &-title {
+        font-size: 17px;
+      }
+      &-arrow {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}

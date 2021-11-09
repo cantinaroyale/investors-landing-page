@@ -19,6 +19,7 @@ function useWeb3(): {
       detectAccount(web3Instance);
       setWeb3(web3Instance);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onAccountChanged = (accounts: string[]) => {

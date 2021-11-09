@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Button from "../../../components/Button";
 import Img from "../../../components/Img";
 import { apeAttributes, TEST_ACCOUNT } from "../../../consts";
 import ApeContract from "../../../Contract/ApeContract";
 import useWeb3 from "../../../hooks/useWeb3";
+import { useMainStore } from "../../../stores/MainStore/inde";
 import { Attribute } from "../../../types";
 import { createGameActions } from "../util";
 
@@ -14,30 +15,43 @@ interface Props {
 const actions = createGameActions();
 
 function Header({ updateBackground, showError }: Props) {
+  const furRef = useRef<number>();
   const { web3, address, connect, web3Loaded } = useWeb3();
   const [assetUrl, setAssetUrl] = useState("");
   const [assetLoading, setAssetLoading] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const { apeFigureLoaded } = useMainStore();
 
   const handleBackGround = useCallback(
     (attributes: Attribute[]) => {
       const backgroundItem = attributes.find(
         (m: Attribute) => m.trait_type === "Background"
       );
-      if (backgroundItem?.value) {
-        updateBackground(backgroundItem.value);
+      if (!backgroundItem?.value) {
+        return;
       }
+      const bg = apeAttributes.background[backgroundItem?.value];
+      updateBackground(bg);
     },
     [updateBackground]
   );
 
-  const handleFur = (attributes: Attribute[]) => {
-    const furItem = attributes.find((m: Attribute) => m.trait_type === "Fur");
-    if (furItem) {
+  const handleFur = useCallback(
+    (attributes: Attribute[]) => {
+      const furItem = attributes.find((m: Attribute) => m.trait_type === "Fur");
+      if (!furItem) {
+        return;
+      }
       const furIndex = apeAttributes.fur[furItem.value];
-      actions.setFur(furIndex);
-    }
-  };
+
+      if (apeFigureLoaded) {
+        actions.setFur(furIndex);
+      } else {
+        // furRef.current = furIndex;
+      }
+    },
+    [apeFigureLoaded]
+  );
 
   const fetchAsset = async (account: string) => {
     if (!web3) {
@@ -52,8 +66,8 @@ function Header({ updateBackground, showError }: Props) {
       setAssetUrl(res.imageapeData);
       handleBackGround(res.attributes);
       handleFur(res.attributes);
+      return true;
     } catch (error) {
-      showError();
     } finally {
       setAssetLoading(false);
     }
@@ -66,9 +80,19 @@ function Header({ updateBackground, showError }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [web3Loaded]);
 
-  const onFetchMyApe = (address: string) => {
-    setInputValue(address);
-    fetchAsset(address);
+  useEffect(() => {
+    if (apeFigureLoaded && furRef.current) {
+      actions.setFur(furRef.current);
+      furRef.current = undefined;
+    }
+  }, [apeFigureLoaded, updateBackground]);
+
+  const onFetchClick = async (val: string) => {
+    setInputValue(val);
+    const res = await fetchAsset(val);
+    if (!res) {
+      showError();
+    }
   };
 
   const handleChange = (e: any) => {
@@ -80,7 +104,7 @@ function Header({ updateBackground, showError }: Props) {
       <Button
         id="connect"
         content={address ? "Show My Ape" : "Connect Wallet"}
-        onClick={address ? () => onFetchMyApe(address) : connect}
+        onClick={address ? () => onFetchClick(address) : connect}
       />
       <div className="main-header-flex">
         <Img src={assetUrl} alt="ape" id="main-header-avatar" />
@@ -98,7 +122,7 @@ function Header({ updateBackground, showError }: Props) {
               content="Load"
               disabled={!inputValue}
               id="fetch-asset"
-              onClick={() => fetchAsset(address)}
+              onClick={() => onFetchClick(inputValue)}
             />
           </section>
         </div>

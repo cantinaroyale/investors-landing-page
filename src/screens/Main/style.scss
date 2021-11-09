@@ -12,7 +12,8 @@
     padding-top: 50px;
     position: relative;
     &-grid {
-      width: 1030px;
+      max-width: 1030px;
+      width: calc(100% - 50px);
       margin: 0 auto;
     }
     &-game {
@@ -28,6 +29,34 @@
       position: absolute;
       bottom: 0px;
       width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .main {
+    &-top {
+      &-game {
+        justify-content: center;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: $mobile) {
+  .main {
+    &-top {
+      padding-top: 30px;
+      &-game {
+        padding-bottom: 140px;
+        margin-top: 50px;
+        flex-direction: column;
+        .game-controller {
+        }
+        .ape {
+          margin-bottom: 10px;
+        }
+      }
     }
   }
 }

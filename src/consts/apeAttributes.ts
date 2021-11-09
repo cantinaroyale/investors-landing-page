@@ -1,4 +1,4 @@
-const fur: any = {
+const fur: { [key: string]: number } = {
   Black: 1229,
   Blue: 490,
   Brown: 1370,
@@ -20,8 +20,19 @@ const fur: any = {
   Zombie: 302,
 };
 
+const background: { [key: string]: string } = {
+  Gray: "#CACECF",
+  "New Punk Blue": "#3C667E",
+  Blue: "#A2E3F5",
+  "Army Green": "#707135",
+  Aquamarine: "#4BE9B6",
+  Orange: "#F1962A",
+  Yellow: "#E4E4A8",
+  Purple: "#705D71",
+};
 const apeAttributes = {
   fur,
+  background,
 };
 
 export { apeAttributes };

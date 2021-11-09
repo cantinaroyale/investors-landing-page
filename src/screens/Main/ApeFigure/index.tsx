@@ -1,25 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Spinner } from "../../../components";
+import { useMainStore } from "../../../stores/MainStore/inde";
 
 function ApeFigure() {
-  const [isLoaded, setIsLoaded] = useState(false);
-  console.log(window as any);
+  const { apeFigureLoaded, setApeFigureLoaded } = useMainStore();
   useEffect(() => {
     (window as any).gameInstance.onProgress = (instance: any, p: any) => {
       if (p === 1) {
-        setIsLoaded(true);
+        setApeFigureLoaded(true);
       }
     };
-  }, []);
+  }, [setApeFigureLoaded]);
 
   return (
     <div className="ape">
       <div
         id="gameContainer"
         className="ape-figure"
-        style={{ opacity: isLoaded ? 1 : 0, width: 570, height: 650 }}
+        style={{ opacity: apeFigureLoaded ? 1 : 0, width: 1140, height: 1300 }}
       ></div>
-      {!isLoaded && <Spinner />}
+      {!apeFigureLoaded && <Spinner />}
     </div>
   );
 }

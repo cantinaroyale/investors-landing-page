@@ -665,7 +665,7 @@ var UnityLoader = UnityLoader || {
       if (
         !(
           (t && t.errorhandler && t.errorhandler(r, e.filename, e.lineno)) ||
-          (console.log("Invoking error handler due to\n" + r),
+          (console.log(),
           "function" == typeof dump &&
             dump("Invoking error handler due to\n" + r),
           r.indexOf("UnknownError") != -1 ||
@@ -772,7 +772,7 @@ var UnityLoader = UnityLoader || {
   },
   XMLHttpRequest: (function () {
     function e(e) {
-      console.log("[UnityCache] " + e);
+      console.log();
     }
     function t(e) {
       return (
@@ -1086,7 +1086,7 @@ var UnityLoader = UnityLoader || {
       e || abort("Assertion failed: " + t);
     },
     optimizeMathFround: function (e, t) {
-      console.log("optimizing out Math.fround calls");
+      console.log();
       for (
         var r = {
             LOOKING_FOR_MODULE: 0,

@@ -15,7 +15,6 @@ class Web3Provider {
   }
 
   onAccountChanged(address: string[]) {
-    console.log({ address });
     this.address = address[0] || "";
   }
 

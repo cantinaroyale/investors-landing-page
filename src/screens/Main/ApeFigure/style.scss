@@ -9,4 +9,23 @@
       border-color: #081633 transparent #081633 transparent;
     }
   }
+  &-figure {
+    zoom: 0.5;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .ape {
+    &-figure {
+      zoom: 0.3;
+    }
+  }
+}
+
+@media only screen and (max-width: $mobile) {
+  .ape {
+    &-figure {
+      zoom: 0.22;
+    }
+  }
 }

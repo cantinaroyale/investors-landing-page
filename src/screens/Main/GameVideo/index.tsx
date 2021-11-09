@@ -1,4 +1,4 @@
-import React from "react";
+import { isMobile } from "react-device-detect";
 import { images, VIDEO_URL } from "../../../consts";
 
 function GameVideo() {
@@ -6,9 +6,10 @@ function GameVideo() {
     <div className="game-video">
       <figure></figure>
       <video
-        autoPlay
+        autoPlay={!isMobile}
         loop
         muted
+        controls={isMobile}
         className="video"
         src={VIDEO_URL}
         poster={images.poster}
